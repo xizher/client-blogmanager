@@ -1,0 +1,9 @@
+.ant-spin-spinning,
+.ant-spin-spinning > div {
+  height: 100%;
+}
+
+.ant-spin-spinning {
+  max-height: 100vh !important;
+  height: 100vh !important;
+}
