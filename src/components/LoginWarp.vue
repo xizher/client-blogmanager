@@ -8,14 +8,14 @@
         type="email"
         placeholder="username or email"
         :value="account"
-        @change="e => account = e.target.value"
+        @input="e => account = e.target.value"
         @keydown.enter="loginExec"
       />
       <input
         type="password"
         placeholder="password"
         :value="password"
-        @change="e => password = e.target.value"
+        @input="e => password = e.target.value"
         @keydown.enter="loginExec"
       />
       <h2>&nbsp;</h2>
