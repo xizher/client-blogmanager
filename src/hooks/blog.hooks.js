@@ -37,7 +37,7 @@ export function useList () {
   const loading = useLoading()
   const dataSource = reactive([])
   const columns = [
-    { title: '标题', dataIndex: 'title', key: 'title', width: 350 },
+    { title: '标题', dataIndex: 'title', key: 'title', slots: { customRender: 'title' }, width: 350 },
     { title: '概要', dataIndex: 'description', key: 'description', slots: { customRender: 'description' }, width: 350 },
     { title: '关键词', dataIndex: 'keywords', key: 'keywords', slots: { customRender: 'keywords' }, width: 250 },
     { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 220 },
@@ -45,6 +45,12 @@ export function useList () {
     { title: '是否公开', dataIndex: 'publish', key: 'publish', slots: { customRender: 'publish' }, width: 72 },
     { title: '', key: 'detials', slots: { customRender: 'detials' }, width: 64, fixed: 'right' },
   ]
+  const pagination = reactive({
+    total: 0,
+    current: 1,
+    pageSize: 10,
+    showSizeChanger: true,
+  })
   function loadDataSource () {
     loading.value = true
     return fetch('/api/blog/list', {
@@ -55,10 +61,11 @@ export function useList () {
       .then(res => {
         loading.value = false
         ext(dataSource).reset(...res.items)
+        pagination.total = res.total
       })
   }
   return {
-    dataSource, loadDataSource, columns
+    dataSource, loadDataSource, columns, pagination
   }
 }
 
