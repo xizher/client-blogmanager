@@ -34,6 +34,7 @@ export function useCreate (mdContent) {
 }
 
 export function useList () {
+  const token = storageUtils.local.get('token') ?? ''
   const loading = useLoading()
   const dataSource = reactive([])
   const columns = [
@@ -54,7 +55,8 @@ export function useList () {
   function loadDataSource () {
     loading.value = true
     return fetch('/api/blog/list', {
-      method: 'get'
+      method: 'get',
+      headers: { token }
     })
       .then(res => res.json())
       .then(res => res.data)
