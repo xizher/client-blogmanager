@@ -23,13 +23,14 @@ const router =  createRouter({
   history: createMemoryHistory()
 })
 
-router.beforeEach(res => {
-  if (res.path !== '/login') {
-    useCheck().then(success => {
-      if (!success) {
-        router.push('/login')
-      }
-    })
+router.beforeEach(async res => {
+  if (res.path === '/login') {
+    return
+  }
+  const success = await useCheck()
+  if (!success) {
+    router.push('/login')
+    return false
   }
 })
 
