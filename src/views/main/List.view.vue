@@ -24,11 +24,14 @@
         <Tag v-for="(item, index) in text" :key="index">{{ item }}</Tag>
       </Tooltip>
     </template>
+    <template #publish="{ record }">
+      <Switch :checked="record.publish" @change="e => handleChange(record, e)" />
+    </template>
     <template #detials="{ record }">
       <Button @click="showDetials(record)" size="small">详情</Button>
     </template>
-    <template #publish="{ record }">
-      <Switch :checked="record.publish" @change="e => handleChange(record, e)" />
+    <template #customTitle>
+      <Button @click="loadDataSource" size="small">刷新</Button>
     </template>
   </Table>
   <BlogDetialsModal v-model:visible="visible" :blog="blog" @loadDataSource="loadDataSource" />

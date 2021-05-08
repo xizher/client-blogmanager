@@ -44,7 +44,7 @@ export function useList () {
     { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 220 },
     { title: '最后修改时间', dataIndex: 'modityTime', key: 'modityTime', width: 220 },
     { title: '是否公开', dataIndex: 'publish', key: 'publish', slots: { customRender: 'publish' }, width: 72 },
-    { title: '', key: 'detials', slots: { customRender: 'detials' }, width: 64, fixed: 'right' },
+    { key: 'detials', slots: { customRender: 'detials', title: 'customTitle' }, width: 64, fixed: 'right' },
   ]
   const pagination = reactive({
     total: 0,
@@ -62,7 +62,7 @@ export function useList () {
       .then(res => res.data)
       .then(res => {
         loading.value = false
-        ext(dataSource).reset(...res.items)
+        ext(dataSource).reset(...res.items.sort((i, j) => j.createtime - i.createtime))
         pagination.total = res.total
       })
   }
